@@ -3,6 +3,7 @@ const sass = require('gulp-sass')(require('sass'));
 const ejs = require("gulp-ejs");
 const rename = require("gulp-rename");
 const eslint = require("gulp-eslint");
+const mocha = require("gulp-mocha");
 
 function testTask(cb) {
     console.log("task finished")
@@ -45,6 +46,18 @@ function runLinter(cb) {
         });
 }
 
+function runTests(cb) {
+    return src(['**/*.test.js'])
+        .pipe(mocha())
+        .on('error', function() {
+            cb(new Error('Test failed'));
+        })
+        .on('end', function() {
+            cb();
+        });
+}
+
+exports.test = runTests;
 exports.lint = runLinter;
 exports.html = generateHTML;
 exports.css = generateCSS;
