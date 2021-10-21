@@ -1,10 +1,9 @@
-const { src, dest } = require("gulp");
+const { src, dest, parallel, series } = require("gulp");
 const sass = require('gulp-sass')(require('sass'));
 const ejs = require("gulp-ejs");
 const rename = require("gulp-rename");
 const eslint = require("gulp-eslint");
 const mocha = require("gulp-mocha");
-
 function testTask(cb) {
     console.log("task finished")
     cb();//chiamata la callback cosí va in success
@@ -63,3 +62,5 @@ exports.html = generateHTML;
 exports.css = generateCSS;
 exports.copy = copy;
 exports.test = testTask;
+
+exports.default = series(runLinter,parallel(generateCSS,generateHTML),runTests);

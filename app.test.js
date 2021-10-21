@@ -26,7 +26,7 @@ describe('test', function() {
         request(app)
             .get('/users')
             .expect(200)
-            .expect('respond with a resource', done);
+            .expect('ciao sono ad un corso', done);
     });
 
 });
